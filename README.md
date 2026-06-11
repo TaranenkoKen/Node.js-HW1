@@ -9,7 +9,7 @@
 | Команда      | Що робить                                                                   |
 | ------------ | --------------------------------------------------------------------------- |
 | `scan`       | Рекурсивне сканування директорії, детальна статистика                       |
-| `duplicates` | Пошук дублікатів по SHA-256 хешу (через `fs.createReadStream`)              |
+| `duplicates` | Пошук дублікатів по SHA-256 хешу                                            |
 | `organize`   | Копіювання файлів у категорії `Documents/Images/Archives/Code/Videos/Other` |
 | `cleanup`    | Пошук та видалення файлів старіших за N днів (dry-run за замовчуванням)     |
 
@@ -32,7 +32,6 @@ file-organizer/
 
 ```bash
 git clone <repository-url>
-cd file-organizer
 ```
 
 ## Швидкий старт
@@ -78,8 +77,7 @@ By File Type:
 
 ### 2. `duplicates <directory>`
 
-Рахує SHA-256 для кожного файлу, стрімить вміст через `fs.createReadStream` (тому
-великі файли не вантажаться повністю в RAM). Виводить групи дублікатів та
+Рахує SHA-256 для кожного файлу. Виводить групи дублікатів та
 підсумкове "витрачене" місце.
 
 ```bash
@@ -91,8 +89,7 @@ node file-organizer.js duplicates ~/Downloads
 Копіює (не переміщує!) файли з `<source>` у `<target>`, розкладаючи по категоріях.
 Категорії визначаються за розширенням; невідомі розширення потрапляють у `Other`.
 Якщо файл з такою назвою вже існує в цільовій папці — додається суфікс `(1)`, `(2)`
-і так далі. Файли ≥ 10 MB копіюються через `pipeline(createReadStream, createWriteStream)`,
-менші — через `fs.copyFile`.
+і так далі.
 
 ```bash
 node file-organizer.js organize ~/Downloads --output ~/Organized
@@ -105,8 +102,7 @@ node file-organizer.js organize ~/Downloads --output ~/Organized
 ### 4. `cleanup <directory> --older-than <days> [--confirm]`
 
 Знаходить файли, у яких `mtime` старший за вказану кількість днів. Без прапорця
-`--confirm` нічого не видаляє — лише друкує список (dry-run). З прапорцем
-`--confirm` виконує реальне `fs.unlink`.
+`--confirm` нічого не видаляє — лише друкує список (dry-run).
 
 Опції:
 
