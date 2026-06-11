@@ -3,7 +3,6 @@ import { Scanner } from './lib/scanner.js';
 import { DuplicateFinder } from './lib/duplicates.js';
 import { Organizer } from './lib/organizer.js';
 import { Cleanup } from './lib/cleanup.js';
-// Імпортуємо наші утиліти
 import { formatSize, drawProgressBar, handleFsError } from './lib/utils.js';
 
 const args = process.argv.slice(2);
